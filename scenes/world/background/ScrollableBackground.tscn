@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sprites/background/PinkBackground.png" type="Texture" id=1]
+[ext_resource path="res://scenes/world/background/ScrollableBackground.gd" type="Script" id=2]
+
+[node name="ScrollableBackground" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="SpriteLeft" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="SpriteRight" type="Sprite" parent="."]
+position = Vector2( 800, 0 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="SpeedIncrementTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="SpeedIncrementTimer" to="." method="_on_SpeedIncrementTimer_timeout"]
