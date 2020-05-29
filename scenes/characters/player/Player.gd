@@ -5,8 +5,8 @@ enum STATES {
 }
 
 const UP: Vector2 = Vector2(0, -1)
-const JUMP_SPEED: float = 100.0
-const GRAVITY: float = 10.0
+const JUMP_SPEED: float = 1200.0
+const GRAVITY: float = 80.0
 
 var state: int = STATES.IDLE
 var motion := Vector2.ZERO
@@ -16,6 +16,8 @@ var is_crouch_registered := false
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
+    randomize()
+
     # Count down -> activate scroll
     yield(get_tree().create_timer(1.0), "timeout")
     _change_state(STATES.RUN)
@@ -27,7 +29,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
     if state != STATES.CROUCH:
-        if event.is_action_pressed("jump"):
+        if state != STATES.JUMP and event.is_action_pressed("jump"):
             _change_state(STATES.JUMP)
         elif event.is_action_pressed("crouch"):
             # Delay the crouch to able to track is the crouch key is pressed while jumping
