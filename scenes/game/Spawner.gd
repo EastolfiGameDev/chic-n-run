@@ -17,6 +17,7 @@ var object_pool_available: Array = []
 var max_available_objects: int
 var last_spawn_time_ms: int = 0
 var rand_spawn_wait_ms: int = 0
+var is_running := false
 
 func _ready() -> void:
     var paths: Array = _get_full_paths(path)
@@ -31,6 +32,9 @@ func _ready() -> void:
             get_parent().call_deferred("add_child_below_node", self, prop)
     
     max_available_objects = paths.size() * copies_of_each
+    
+    Game.connect("scroll_started", self, "on_Game_scroll_started")
+    set_process(false)
 
 func _process(delta: float) -> void:
     var time_diff: int = OS.get_system_time_msecs() - last_spawn_time_ms
@@ -116,3 +120,7 @@ func _get_random_global_position(object: Node2D) -> Vector2:
     var texture_height: float = object.get_height()
     var starting_y: float = rand_range(min_y, max_y) - (texture_height / 2)
     return Vector2(starting_x, starting_y)
+
+
+func on_Game_scroll_started():
+    set_process(true)

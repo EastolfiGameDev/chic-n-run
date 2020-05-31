@@ -1,18 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/world/background/ScrollableBackground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/game/Spawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/levels/RunLevel.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui/hud/HUD.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 387.87, 10 )
 
 [node name="GrassLevel" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="ScrollableBackground" parent="." instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 107.669, 374.361 )
+position = Vector2( 117.669, 329.361 )
 scale = Vector2( 1.5, 1.5 )
 collision_layer = 2
 
@@ -23,13 +26,15 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape2D" parent="Ground"]
 shape = SubResource( 1 )
 
-[node name="Spawner" parent="." instance=ExtResource( 3 )]
-path = "res://scenes/world/props/Enemy.tscn"
+[node name="SpawnerGround" parent="." instance=ExtResource( 3 )]
+path = "res://scenes/world/props/ground/"
 
-[node name="SpawnerMedium" parent="." instance=ExtResource( 3 )]
-path = "res://scenes/world/props/Platform.tscn"
+[node name="SpawnerFlying" parent="." instance=ExtResource( 3 )]
+path = "res://scenes/world/props/flying/"
 min_y = 350
 max_y = 350
 object_velocity = 4
 min_spawn_wait_ms = 2000
 max_spawn_wait_ms = 5000
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]

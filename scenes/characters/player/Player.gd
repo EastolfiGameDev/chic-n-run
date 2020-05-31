@@ -12,22 +12,29 @@ var state: int = STATES.IDLE
 var motion := Vector2.ZERO
 var is_on_air := false
 var is_crouch_registered := false
+var initial_position: Vector2
 
-onready var collision_shape: CollisionShape2D = $CollisionShape2D
+#onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var animation: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
     randomize()
 
-    # Count down -> activate scroll
-    yield(get_tree().create_timer(1.0), "timeout")
-    _change_state(STATES.RUN)
+    initial_position = position
+    
+    Game.connect("scroll_started", self, "on_Game_scroll_started")
+    set_process(false)
 
 func _physics_process(delta: float) -> void:
     move_and_slide(motion, UP)
     _apply_gravity()
     _check_state()
+    _check_position()
 
 func _input(event: InputEvent) -> void:
+    if state == STATES.IDLE:
+        return
+
     if state != STATES.CROUCH:
         if state != STATES.JUMP and event.is_action_pressed("jump"):
             _change_state(STATES.JUMP)
@@ -55,6 +62,7 @@ func _change_state(new_state: int) -> void:
     match new_state:
         STATES.RUN:
             is_on_air = false
+            animation.play("run")
         STATES.JUMP:
             motion.y -= JUMP_SPEED
             yield(get_tree(), "idle_frame")
@@ -80,6 +88,10 @@ func _check_state() -> void:
         _:
             _change_state(STATES.IDLE)
 
+func _check_position():
+    if position.x < initial_position.x:
+        position.x += 5
+
 func _state_idle() -> void:
     pass
 
@@ -93,10 +105,17 @@ func _state_jump() -> void:
 func _state_crouch() -> void:
     pass
 
+# Change to enable / disable de collition
 func _shrink_collision() -> void:
-    collision_shape.shape.extents.y = 15
-    collision_shape.position.y = 15
+    pass
+#    collision_shape.shape.extents.y = 15
+#    collision_shape.position.y = 15
 
 func _expand_collision() -> void:
-    collision_shape.shape.extents.y = 30
-    collision_shape.position.y = 0
+    pass
+#    collision_shape.shape.extents.y = 30
+#    collision_shape.position.y = 0
+
+func on_Game_scroll_started():
+    set_process(true)
+    _change_state(STATES.RUN)
