@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="chic-n-run"
-run/main_scene="res://scenes/levels/grass/GrassLevel.tscn"
+run/main_scene="res://scenes/ui/menu/TitleScreen.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Game="*res://scripts/autoload/Game.gd"
 
 [display]
 
