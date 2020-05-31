@@ -9,13 +9,14 @@ const JUMP_SPEED: float = 1200.0
 const GRAVITY: float = 80.0
 const LEFT_BOUND: int = -55
 
-var state: int = STATES.IDLE
+var state: int
 var motion := Vector2.ZERO
 var is_on_air := false
 var is_crouch_registered := false
 var initial_position: Vector2
 
-#onready var collision_shape: CollisionShape2D = $CollisionShape2D
+onready var collision_run: CollisionShape2D = $CollisionRun
+onready var collision_crouch: CollisionShape2D = $CollisionCrouch
 onready var animation: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
@@ -23,8 +24,8 @@ func _ready() -> void:
 
     initial_position = position
     
+    _change_state(STATES.IDLE)
     Game.connect("scroll_started", self, "on_Game_scroll_started")
-    set_process(false)
 
 func _physics_process(delta: float) -> void:
     move_and_slide(motion, UP)
@@ -58,9 +59,11 @@ func _change_state(new_state: int) -> void:
     match state:
         STATES.CROUCH:
             if new_state != STATES.CROUCH:
-                _expand_collision()
+                _run_collision()
 
     match new_state:
+        STATES.IDLE:
+            animation.play("idle")
         STATES.RUN:
             is_on_air = false
             animation.play("run")
@@ -69,7 +72,8 @@ func _change_state(new_state: int) -> void:
             yield(get_tree(), "idle_frame")
             is_on_air = true
         STATES.CROUCH:
-            _shrink_collision()
+            animation.play("crouch")
+            _crouch_collision()
     
     state = new_state
 
@@ -109,17 +113,13 @@ func _state_jump() -> void:
 func _state_crouch() -> void:
     pass
 
-# Change to enable / disable de collition
-func _shrink_collision() -> void:
-    pass
-#    collision_shape.shape.extents.y = 15
-#    collision_shape.position.y = 15
+func _run_collision() -> void:
+    collision_run.disabled = false
+    collision_crouch.disabled = true
 
-func _expand_collision() -> void:
-    pass
-#    collision_shape.shape.extents.y = 30
-#    collision_shape.position.y = 0
+func _crouch_collision() -> void:
+    collision_crouch.disabled = false
+    collision_run.disabled = true
 
 func on_Game_scroll_started():
-    set_process(true)
     _change_state(STATES.RUN)
