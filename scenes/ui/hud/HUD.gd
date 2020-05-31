@@ -2,6 +2,11 @@ extends CanvasLayer
 
 onready var pause_dialog: Popup = $PausePopup
 onready var gameover_dialog: Popup = $GameoverPopup
+onready var score_label: Label = $TextureRect/Score
+onready var final_score: Label = $GameoverPopup/MarginContainer/Content/TextureRect/Score
+
+func _ready() -> void:
+    Game.connect("game_ended", self, "_on_Game_ended")
 
 func open_dialog(dialog: Popup) -> void:
     dialog.popup_centered()
@@ -19,10 +24,14 @@ func pause() -> void:
 func game_over() -> void:
     open_dialog(gameover_dialog)
 
+func update_score(score: int) -> void:
+    score_label.text = str(score)
+
 # SIGNALS #
 
 func _on_Game_ended(score: int) -> void:
-    pass
+    final_score.text = str(score)
+    game_over()
 
 func _on_CloseButton_pressed() -> void:
     close_dialog(pause_dialog)

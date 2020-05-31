@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/fonts/FH-GoodDogPlain WTT/font.tres" type="DynamicFont" id=1]
+
+[node name="Score" type="Label"]
+margin_left = 168.679
+margin_top = 7.19499
+margin_right = 208.679
+margin_bottom = 32.195
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.968627, 0.886275, 0.419608, 1 )
+custom_colors/font_outline_modulate = Color( 0.105882, 0.14902, 0.196078, 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}

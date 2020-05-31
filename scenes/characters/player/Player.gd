@@ -7,6 +7,7 @@ enum STATES {
 const UP: Vector2 = Vector2(0, -1)
 const JUMP_SPEED: float = 1200.0
 const GRAVITY: float = 80.0
+const LEFT_BOUND: int = -55
 
 var state: int = STATES.IDLE
 var motion := Vector2.ZERO
@@ -91,6 +92,9 @@ func _check_state() -> void:
 func _check_position():
     if position.x < initial_position.x:
         position.x += 5
+    
+    if global_position.x < LEFT_BOUND:
+        Game.end_run()
 
 func _state_idle() -> void:
     pass
