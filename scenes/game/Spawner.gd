@@ -8,10 +8,10 @@ export var starting_x: int = 1000
 export var object_velocity = 5
 export var min_spawn_wait_ms = 1000
 export var max_spawn_wait_ms = 2000
+export(int) var copies_of_each: int = 2
 
 const LEFT_BOUND = -70
 
-var copies_of_each: int = 2
 var object_pool: Array = []
 var object_pool_available: Array = []
 var max_available_objects: int

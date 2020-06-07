@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/sprites/background/PinkBackground.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/background/beach_background.png" type="Texture" id=1]
 [ext_resource path="res://scenes/world/background/ScrollableBackground.gd" type="Script" id=2]
 
 [node name="ScrollableBackground" type="Node2D"]
