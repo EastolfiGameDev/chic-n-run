@@ -3,6 +3,11 @@ extends StaticBody2D
 
 # Initially at 0, characters are made to move by the ObjectPool.
 var g_velocity: float = 0
+var animation: AnimationPlayer
+
+func _ready() -> void:
+    if has_node("AnimationPlayer"):
+        animation = $AnimationPlayer
 
 func _physics_process(_delta: float) -> void:
     position.x += g_velocity
@@ -18,4 +23,5 @@ func reset() -> void:
 # @note: for ObjectPool.
 func start(velocity: float) -> void:
     g_velocity = -velocity
-#    $AnimationPlayer.play('Walk')
+    if animation:
+        animation.play("move")
