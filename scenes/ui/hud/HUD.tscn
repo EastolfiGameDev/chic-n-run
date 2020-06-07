@@ -74,17 +74,20 @@ alignment = 1
 margin_left = 123.0
 margin_right = 388.0
 margin_bottom = 38.0
+focus_mode = 1
+enabled_focus_mode = 1
 texture_normal = ExtResource( 2 )
 
 [node name="QuitButton" type="TextureButton" parent="PausePopup/MarginContainer/Content/Buttons"]
 margin_left = 392.0
 margin_right = 657.0
 margin_bottom = 38.0
+focus_mode = 1
+enabled_focus_mode = 1
 texture_normal = ExtResource( 4 )
 
 [node name="GameoverPopup" type="Popup" parent="."]
 pause_mode = 2
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 popup_exclusive = true
@@ -141,12 +144,16 @@ alignment = 1
 margin_left = 123.0
 margin_right = 388.0
 margin_bottom = 38.0
+focus_mode = 1
+enabled_focus_mode = 1
 texture_normal = ExtResource( 5 )
 
 [node name="QuitButton" type="TextureButton" parent="GameoverPopup/MarginContainer/Content/Buttons"]
 margin_left = 392.0
 margin_right = 657.0
 margin_bottom = 38.0
+focus_mode = 1
+enabled_focus_mode = 1
 texture_normal = ExtResource( 4 )
 [connection signal="pressed" from="PausePopup/MarginContainer/Content/Buttons/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="PausePopup/MarginContainer/Content/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
