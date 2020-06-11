@@ -52,12 +52,13 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="PlayButton" type="TextureButton" parent="MarginContainer/HBoxContainer/ButtonsContainer"]
-margin_top = 180.0
+margin_top = 201.0
 margin_right = 265.0
-margin_bottom = 218.0
+margin_bottom = 239.0
 texture_normal = ExtResource( 5 )
 
 [node name="CollectionButton" type="TextureButton" parent="MarginContainer/HBoxContainer/ButtonsContainer"]
+visible = false
 margin_top = 222.0
 margin_right = 265.0
 margin_bottom = 260.0
