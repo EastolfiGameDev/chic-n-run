@@ -16,7 +16,3 @@ position = Vector2( 800, 0 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 centered = false
-
-[node name="SpeedIncrementTimer" type="Timer" parent="."]
-one_shot = true
-[connection signal="timeout" from="SpeedIncrementTimer" to="." method="_on_SpeedIncrementTimer_timeout"]

@@ -1,6 +1,7 @@
 extends Node
 
 signal scroll_started
+signal scroll_speed_increased(factor)
 signal game_ended(score)
 signal player_stats_updated(stats)
 
@@ -10,6 +11,7 @@ const INITIAL_MAX_HEALTH = 3
 var player_stats: Dictionary = {}
 var max_health = INITIAL_MAX_HEALTH
 var last_score = 0
+var speed_factor: float = 1
 
 func _ready() -> void:
     init_player_stats()
@@ -31,6 +33,9 @@ func end_run() -> void:
     _save_max_score(score)
     
     emit_signal("game_ended", score)
+
+func increase_scroll_speed(factor: float) -> void:
+    emit_signal("scroll_speed_increased", factor)
 
 func get_save_file() -> Dictionary:
     var save_info = {}

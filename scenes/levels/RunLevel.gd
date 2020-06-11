@@ -21,6 +21,10 @@ func _input(event: InputEvent) -> void:
 
 func _update_score():
     score += 1
+    
+    if score % 25 == 0:
+        Game.increase_scroll_speed(1.4)
+    
     get_tree().call_group("HUD", "update_score", score)
 
 func on_Game_scroll_started():
