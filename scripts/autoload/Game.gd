@@ -9,6 +9,7 @@ const INITIAL_MAX_HEALTH = 3
 
 var player_stats: Dictionary = {}
 var max_health = INITIAL_MAX_HEALTH
+var last_score = 0
 
 func _ready() -> void:
     init_player_stats()
@@ -26,6 +27,7 @@ func end_run() -> void:
     var levels = get_tree().get_nodes_in_group("Level")
     var score: int = levels[0].score
     
+    last_score = score
     _save_max_score(score)
     
     emit_signal("game_ended", score)

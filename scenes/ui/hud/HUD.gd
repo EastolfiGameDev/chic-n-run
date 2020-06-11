@@ -10,6 +10,8 @@ onready var final_score: Label = $GameoverPopup/MarginContainer/Content/TextureR
 onready var HeartEmpty: TextureRect = $HealthDisplay/HeartEmpty
 onready var HeartFull: TextureRect = $HealthDisplay/HeartFull
 onready var countdown: Control = $Countdown
+onready var username_input: LineEdit = $GameoverPopup/MarginContainer/Content/HBoxContainer/UsernameText
+onready var http_request: HTTPRequest = $HTTPRequest
 
 func _ready() -> void:
     Game.connect("game_ended", self, "_on_Game_ended")
@@ -74,3 +76,16 @@ func on_player_stats_updated(stats: Dictionary):
         update_health(stats.health)
     if stats.has("max_health"):
         update_max_health(stats.max_health)
+
+
+func _on_SubmitButton_pressed() -> void:
+    if username_input.text:
+        var url = "https://chic-n-run-leaderboard.glitch.me/api/1.0/leaderboard/add"
+        var score: Dictionary = {
+            username = username_input.text,
+            score = Game.last_score
+        }
+        var headers = ["Content-Type: application/json"]
+        http_request.request(url, headers, false, HTTPClient.METHOD_POST, to_json(score))
+    else:
+        print("do nothing")
