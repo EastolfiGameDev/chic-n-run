@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_pause.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_resume.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/ui/components/ScoreLabel.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/sprites/ui/hud/heart_empty.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/ui/hud/heart_full.png" type="Texture" id=10]
+[ext_resource path="res://scenes/ui/components/Countdown.tscn" type="PackedScene" id=11]
 
 [node name="HUD" type="CanvasLayer" groups=[
 "HUD",
@@ -192,6 +193,8 @@ margin_bottom = 38.0
 focus_mode = 1
 enabled_focus_mode = 1
 texture_normal = ExtResource( 4 )
+
+[node name="Countdown" parent="." instance=ExtResource( 11 )]
 [connection signal="pressed" from="PausePopup/MarginContainer/Content/Buttons/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="PausePopup/MarginContainer/Content/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="GameoverPopup/MarginContainer/Content/Buttons/RetryButton" to="." method="_on_RetryButton_pressed"]

@@ -17,14 +17,9 @@ func start_run() -> void:
     start_countdown()
 
 func start_countdown() -> void:
-    print("3")
-    yield(get_tree().create_timer(1.0), "timeout")
-    print("2")
-    yield(get_tree().create_timer(1.0), "timeout")
-    print("1")
-    yield(get_tree().create_timer(1.0), "timeout")
-    print("Start")
+    get_tree().call_group("HUD", "start_countdown")
 
+func start_scroll() -> void:
     emit_signal("scroll_started")
 
 func end_run() -> void:

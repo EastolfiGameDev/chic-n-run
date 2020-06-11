@@ -9,6 +9,7 @@ onready var score_label: Label = $TextureRect/Score
 onready var final_score: Label = $GameoverPopup/MarginContainer/Content/TextureRect/Score
 onready var HeartEmpty: TextureRect = $HealthDisplay/HeartEmpty
 onready var HeartFull: TextureRect = $HealthDisplay/HeartFull
+onready var countdown: Control = $Countdown
 
 func _ready() -> void:
     Game.connect("game_ended", self, "_on_Game_ended")
@@ -42,6 +43,9 @@ func update_max_health(value: int):
         HeartEmpty.rect_size.x = max(value, 1) * HEART_SIZE.x
     else:
         HeartEmpty.rect_size.x = max(value, 1) * HEART_SIZE.x
+
+func start_countdown() -> void:
+    countdown.start_countdown()
 
 # SIGNALS #
 
