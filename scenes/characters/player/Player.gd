@@ -20,6 +20,7 @@ var initial_position: Vector2
 onready var collision_run: CollisionShape2D = $CollisionRun
 onready var collision_crouch: CollisionShape2D = $CollisionCrouch
 onready var animation: AnimationPlayer = $AnimationPlayer
+onready var effects: AnimationPlayer = $Effects
 onready var hurtbox: Area2D = $HurtBox
 onready var stats = $Stats
 
@@ -139,6 +140,11 @@ func _on_HurtBox_area_entered(area: Area2D) -> void:
     hurtbox.start_invincibility(1.0)
 #    hurtbox.create_hit_effect()
 
+func _on_Hurtbox_invincibility_started() -> void:
+    effects.play("blink_start")
+
+func _on_HurtBox_invincibility_ended() -> void:
+    effects.play("blink_stop")
 
 func _on_Stats_no_health() -> void:
     Game.end_run()
