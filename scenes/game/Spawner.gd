@@ -9,6 +9,7 @@ export var object_velocity = 5
 export var min_spawn_wait_ms = 1000
 export var max_spawn_wait_ms = 2000
 export(int) var copies_of_each: int = 2
+export(bool) var disable := false
 
 const LEFT_BOUND = -70
 
@@ -20,6 +21,10 @@ var rand_spawn_wait_ms: int = 0
 var is_running := false
 
 func _ready() -> void:
+    if disable:
+        set_process(false)
+        return
+
     var paths: Array = _get_full_paths(path)
     for path in paths:
         var resource: PackedScene = load(path)

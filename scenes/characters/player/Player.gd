@@ -5,7 +5,7 @@ enum STATES {
 }
 
 const UP: Vector2 = Vector2(0, -1)
-const JUMP_SPEED: float = 1200.0
+const JUMP_SPEED: float = 1300.0
 const GRAVITY: float = 80.0
 const LEFT_BOUND: int = -55
 
