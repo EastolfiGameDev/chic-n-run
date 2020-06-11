@@ -1,12 +1,18 @@
 extends CanvasLayer
 
+const HEART_SIZE = Vector2(32, 32)
+const MAX_HEARTS_PER_ROW = 6
+
 onready var pause_dialog: Popup = $PausePopup
 onready var gameover_dialog: Popup = $GameoverPopup
 onready var score_label: Label = $TextureRect/Score
 onready var final_score: Label = $GameoverPopup/MarginContainer/Content/TextureRect/Score
+onready var HeartEmpty: TextureRect = $HealthDisplay/HeartEmpty
+onready var HeartFull: TextureRect = $HealthDisplay/HeartFull
 
 func _ready() -> void:
     Game.connect("game_ended", self, "_on_Game_ended")
+    Game.connect("player_stats_updated", self, "on_player_stats_updated")
 
 func open_dialog(dialog: Popup) -> void:
     dialog.popup_centered()
@@ -26,6 +32,16 @@ func game_over() -> void:
 
 func update_score(score: int) -> void:
     score_label.text = str(score)
+
+func update_health(value: int):
+    HeartFull.rect_size.x = clamp(value, 0, Game.max_health) * HEART_SIZE.x
+
+func update_max_health(value: int):
+    if value > MAX_HEARTS_PER_ROW:
+        # TODO - Handle several rows
+        HeartEmpty.rect_size.x = max(value, 1) * HEART_SIZE.x
+    else:
+        HeartEmpty.rect_size.x = max(value, 1) * HEART_SIZE.x
 
 # SIGNALS #
 
@@ -48,3 +64,9 @@ func _on_QuitButton_pressed() -> void:
 func _on_RetryButton_pressed() -> void:
     close_dialog(gameover_dialog)
     get_tree().reload_current_scene()
+
+func on_player_stats_updated(stats: Dictionary):
+    if stats.has("health"):
+        update_health(stats.health)
+    if stats.has("max_health"):
+        update_max_health(stats.max_health)

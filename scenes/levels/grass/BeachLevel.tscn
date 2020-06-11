@@ -13,13 +13,14 @@ extents = Vector2( 387.87, 10 )
 [node name="BeachLevel" type="Node2D"]
 script = ExtResource( 5 )
 
+[node name="HUD" parent="." instance=ExtResource( 2 )]
+
 [node name="ScrollableBackground" parent="." instance=ExtResource( 3 )]
 background_image = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 117.669, 329.361 )
 scale = Vector2( 1.5, 1.5 )
-collision_layer = 2
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2( 380, 435 )
@@ -47,5 +48,3 @@ max_y = 330
 object_velocity = 7
 min_spawn_wait_ms = 2000
 max_spawn_wait_ms = 5000
-
-[node name="HUD" parent="." instance=ExtResource( 2 )]

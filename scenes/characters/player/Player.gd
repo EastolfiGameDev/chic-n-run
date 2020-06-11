@@ -9,6 +9,8 @@ const JUMP_SPEED: float = 1200.0
 const GRAVITY: float = 80.0
 const LEFT_BOUND: int = -55
 
+export(bool) var god_mode = false
+
 var state: int
 var motion := Vector2.ZERO
 var is_on_air := false
@@ -18,6 +20,8 @@ var initial_position: Vector2
 onready var collision_run: CollisionShape2D = $CollisionRun
 onready var collision_crouch: CollisionShape2D = $CollisionCrouch
 onready var animation: AnimationPlayer = $AnimationPlayer
+onready var hurtbox: Area2D = $HurtBox
+onready var stats = $Stats
 
 func _ready() -> void:
     randomize()
@@ -116,10 +120,25 @@ func _state_crouch() -> void:
 func _run_collision() -> void:
     collision_run.disabled = false
     collision_crouch.disabled = true
+    hurtbox.get_node("CollisionRun").disabled = false
+    hurtbox.get_node("CollisionCrouch").disabled = true
 
 func _crouch_collision() -> void:
     collision_crouch.disabled = false
     collision_run.disabled = true
+    hurtbox.get_node("CollisionCrouch").disabled = false
+    hurtbox.get_node("CollisionRun").disabled = true
 
 func on_Game_scroll_started():
     _change_state(STATES.RUN)
+
+
+func _on_HurtBox_area_entered(area: Area2D) -> void:
+    if not god_mode:
+        stats.health -= area.damage
+    hurtbox.start_invincibility(1.0)
+#    hurtbox.create_hit_effect()
+
+
+func _on_Stats_no_health() -> void:
+    Game.end_run()

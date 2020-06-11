@@ -13,7 +13,7 @@ func _ready() -> void:
     add_child(score_timer)
 
     Game.connect("scroll_started", self, "on_Game_scroll_started")
-    Game.start_countdown()
+    Game.start_run()
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel"):

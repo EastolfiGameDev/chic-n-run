@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://scenes/game/Stats.gd"
+} ]
 _global_script_class_icons={
-
+"Stats": ""
 }
 
 [application]
@@ -30,7 +35,7 @@ window/size/height=450
 
 [editor_plugins]
 
-enabled=PoolStringArray( "ballparq" )
+enabled=PoolStringArray(  )
 
 [importer_defaults]
 
@@ -74,6 +79,7 @@ crouch={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy Hitbox"
 2d_physics/layer_4="Player Hurtbox"
+2d_physics/layer_5="Enemy"
 
 [rendering]
 

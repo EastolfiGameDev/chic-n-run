@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_pause.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_resume.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_game_over.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/ui/menu/buttons/button_score.png" type="Texture" id=7]
 [ext_resource path="res://scenes/ui/components/ScoreLabel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sprites/ui/hud/heart_empty.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/ui/hud/heart_full.png" type="Texture" id=10]
 
 [node name="HUD" type="CanvasLayer" groups=[
 "HUD",
@@ -28,6 +30,41 @@ __meta__ = {
 [node name="Score" parent="TextureRect" instance=ExtResource( 8 )]
 margin_top = 4.19499
 margin_bottom = 37.195
+
+[node name="HealthDisplay" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartEmpty" type="TextureRect" parent="HealthDisplay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_right = -3.99999
+margin_bottom = -8.0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartFull" type="TextureRect" parent="HealthDisplay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_right = -68.0
+margin_bottom = -8.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PausePopup" type="Popup" parent="."]
 pause_mode = 2

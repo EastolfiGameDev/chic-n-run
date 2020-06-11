@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/sprites/world/props/flying/seagull_fly.png" type="Texture" id=1]
 [ext_resource path="res://scenes/world/props/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/collisions/Hitbox.tscn" type="PackedScene" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "move"
 length = 0.6
 loop = true
@@ -20,7 +21,12 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="Platform" type="StaticBody2D"]
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.14241
+height = 19.9797
+
+[node name="Seagull" type="StaticBody2D"]
+collision_layer = 16
 collision_mask = 0
 script = ExtResource( 2 )
 
@@ -30,7 +36,18 @@ hframes = 3
 frame = 2
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( -20.2978, -1.51657, -13.7795, -7.18467, 4.73623, -7.0902, 20.6069, 5.66301, 20.7014, 9.2528, 5.39751, 6.98556, -2.53782, 5.94641, -11.5123, 1.60088, -20.0144, 1.78981 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/move = SubResource( 2 )
+anims/move = SubResource( 1 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( -1.35597, -0.774845 )
+rotation = 1.71566
+shape = SubResource( 2 )
+
+[editable path="Hitbox"]
